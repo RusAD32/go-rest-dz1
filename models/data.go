@@ -1,11 +1,20 @@
 package models
 
-var DB map[int]Item
+var DB = make(map[int]Item)
 
 type Item struct {
 	Title  string  `json:"title"`
 	Amount int     `json:"amount"`
 	Price  float32 `json:"price"`
+}
+
+func init() {
+	initItem := Item{
+		Title: "Lightbulb",
+		Amount: 100,
+		Price: 1.0,
+	}
+	AddItemToDB(1, initItem)
 }
 
 func FindItemById(id int) (Item, bool) {
@@ -22,7 +31,7 @@ func AddItemToDB(id int, item Item) bool {
 }
 
 func DeleteItemFromDB(id int) bool {
-	if _, ok := DB[id]; ok {
+	if _, ok := DB[id]; !ok {
 		return false
 	}
 	delete(DB, id)
@@ -38,5 +47,5 @@ func UpdateItemInDB(id int, item Item) bool {
 }
 
 func IsDBEmpty() bool {
-	return len(DB) > 0
+	return len(DB) == 0
 }

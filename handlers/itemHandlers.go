@@ -152,7 +152,8 @@ func DeleteBookById(writer http.ResponseWriter, request *http.Request) {
 		}
 		return
 	}
-	msg := models.JSONError{Error: "Item deleted"}
+	msg := models.JSONMessage{Message: "Item deleted"}
+	writer.WriteHeader(202)
 	err = json.NewEncoder(writer).Encode(msg)
 	if err != nil {
 		log.Fatal("Can't encode error, something extremely wrong")

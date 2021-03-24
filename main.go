@@ -1,7 +1,6 @@
 package main
 
 import (
-	"DZ1/models"
 	"log"
 	"net/http"
 	"os"
@@ -27,12 +26,6 @@ func init() {
 		log.Fatal("could not find .env file:", err)
 	}
 	port = os.Getenv("app_port")
-	initItem := models.Item{
-		Title: "Lightbulb",
-		Amount: 100,
-		Price: 1.0,
-	}
-	models.AddItemToDB(1, initItem)
 }
 
 func main() {
