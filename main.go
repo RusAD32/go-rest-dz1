@@ -1,6 +1,7 @@
 package main
 
 import (
+	"DZ1/models"
 	"log"
 	"net/http"
 	"os"
@@ -15,9 +16,9 @@ const (
 )
 
 var (
-	port                    string
-	bookResourcePrefix      string = apiPrefix + "/item"
-	manyBooksResourcePrefix string = apiPrefix + "/items"
+	port                   string
+	itemResourcePrefix     string = apiPrefix + "/item"
+	manyItemResourcePrefix string = apiPrefix + "/items"
 )
 
 func init() {
@@ -26,14 +27,20 @@ func init() {
 		log.Fatal("could not find .env file:", err)
 	}
 	port = os.Getenv("app_port")
+	initItem := models.Item{
+		Title: "Lightbulb",
+		Amount: 100,
+		Price: 1.0,
+	}
+	models.AddItemToDB(1, initItem)
 }
 
 func main() {
 	log.Println("Starting REST API server on port:", port)
 	router := mux.NewRouter()
 
-	utils.BuildItemResource(router, bookResourcePrefix)
-	utils.BuildManyItemsResourcePrefix(router, manyBooksResourcePrefix)
+	utils.BuildItemResource(router, itemResourcePrefix)
+	utils.BuildManyItemsResourcePrefix(router, manyItemResourcePrefix)
 
 	log.Println("Router initalizing successfully. Ready to go!")
 	log.Fatal(http.ListenAndServe(":"+port, router))

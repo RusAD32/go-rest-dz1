@@ -3,9 +3,9 @@ package models
 var DB map[int]Item
 
 type Item struct {
-	Title         string `json:"title"`
-	Amount        int `json:"amount"`
-	Price 		  float32    `json:"price"`
+	Title  string  `json:"title"`
+	Amount int     `json:"amount"`
+	Price  float32 `json:"price"`
 }
 
 func FindItemById(id int) (Item, bool) {

@@ -17,7 +17,8 @@ func GetBookById(writer http.ResponseWriter, request *http.Request) {
 		log.Println("error while parsing happened:", err)
 		writer.WriteHeader(400)
 		msg := models.JSONError{Error: "do not use parameter ID as uncasted to int type"}
-		err := json.NewEncoder(writer).Encode(msg); if err != nil {
+		err := json.NewEncoder(writer).Encode(msg)
+		if err != nil {
 			log.Fatal("Can't encode DB, something extremely wrong")
 		}
 		return
@@ -49,7 +50,8 @@ func CreateBook(writer http.ResponseWriter, request *http.Request) {
 		log.Println("error while parsing happened:", err)
 		writer.WriteHeader(400)
 		msg := models.JSONError{Error: "do not use parameter ID as uncasted to int type"}
-		err := json.NewEncoder(writer).Encode(msg); if err != nil {
+		err := json.NewEncoder(writer).Encode(msg)
+		if err != nil {
 			log.Fatal("Can't encode DB, something extremely wrong")
 		}
 		return
